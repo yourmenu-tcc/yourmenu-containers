@@ -1,0 +1,73 @@
+package tech.miqueias.bento.io.usuario;
+
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "usuarios")
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 150)
+    private String nome;
+
+    @Column(nullable = false, unique = true, length = 255)
+    private String email;
+
+    @Column(nullable = false)
+    private String senha;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"))
+    @Column(name = "role")
+    private Set<Role> roles = new HashSet<>();
+
+    protected Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha, Set<Role> roles) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.roles = roles != null ? roles : new HashSet<>();
+    }
+
+    // Comportamentos de Domínio
+    public void adicionarRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public boolean possuiRole(Role role) {
+        return this.roles.contains(role);
+    }
+
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public Set<Role> getRoles() {
+        return Set.copyOf(roles); // retorna cópia imutável
+    }
+
+    public void setSenha(String senhaHash) {
+        this.senha = senhaHash;
+    }
+}
