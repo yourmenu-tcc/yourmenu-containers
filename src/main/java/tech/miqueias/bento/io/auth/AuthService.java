@@ -58,18 +58,6 @@ public class AuthService {
         return new LoginResponse(token, duracaoSegundos);
     }
 
-    public List<UsuarioResponseDTO> listarTodos() {
-        return usuarioRepository.listarTodos().stream()
-                .map(this::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    public UsuarioResponseDTO buscarPorId(Long id) {
-        Usuario usuario = usuarioRepository.buscarPorId(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário", id));
-        return toResponseDTO(usuario);
-    }
-
     // ========== Métodos auxiliares ==========
 
     /**

@@ -13,14 +13,13 @@ import tech.miqueias.bento.io.usuario.dto.UsuarioRequestDTO;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
 
 import java.net.URI;
-import java.util.List;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/api/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Autenticação", description = "Endpoints de autenticação e gerenciamento de usuários")
+@Tag(name = "Autenticação", description = "Endpoints de autenticação de usuários")
 @SecurityRequirement(name = "jwt")
 public class AuthController {
 
@@ -47,20 +46,6 @@ public class AuthController {
     public Response login(@Valid LoginRequest dto) {
         LoginResponse token = authService.login(dto);
         return Response.ok(token).build();
-    }
-
-    @GET
-    @Path("/usuarios")
-    @RolesAllowed({"ADMINISTRADOR", "GERENTE"})
-    public List<UsuarioResponseDTO> listarTodos() {
-        return authService.listarTodos();
-    }
-
-    @GET
-    @Path("/usuarios/{id}")
-    @RolesAllowed({"ADMINISTRADOR", "GERENTE"})
-    public UsuarioResponseDTO buscarPorId(@PathParam("id") Long id) {
-        return authService.buscarPorId(id);
     }
 
     @GET
