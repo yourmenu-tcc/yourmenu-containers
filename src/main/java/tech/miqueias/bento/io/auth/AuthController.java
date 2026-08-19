@@ -50,7 +50,7 @@ public class AuthController {
 
     @GET
     @Path("/test-auth")
-    @RolesAllowed({"ADMINISTRADOR", "GERENTE"})
+    @PermitAll
     public Response testAuth() {
         return Response.ok("Autenticação funcionando com sucesso.").build();
     }

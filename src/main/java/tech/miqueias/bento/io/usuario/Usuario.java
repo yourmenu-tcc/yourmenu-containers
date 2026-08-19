@@ -34,19 +34,9 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.roles = roles != null ? roles : new HashSet<>();
+        this.roles = roles;
     }
 
-    // Comportamentos de Domínio
-    public void adicionarRole(Role role) {
-        this.roles.add(role);
-    }
-
-    public boolean possuiRole(Role role) {
-        return this.roles.contains(role);
-    }
-
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -64,7 +54,15 @@ public class Usuario {
     }
 
     public Set<Role> getRoles() {
-        return Set.copyOf(roles); // retorna cópia imutável
+        return Set.copyOf(roles);
+    }
+
+    public void adicionarRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public boolean possuiRole(Role role) {
+        return this.roles.contains(role);
     }
 
     public void setSenha(String senhaHash) {

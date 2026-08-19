@@ -11,14 +11,12 @@ import org.wildfly.security.password.util.ModularCrypt;
 import tech.miqueias.bento.io.auth.dto.LoginRequest;
 import tech.miqueias.bento.io.auth.dto.LoginResponse;
 import tech.miqueias.bento.io.shared.exeption.DomainException;
-import tech.miqueias.bento.io.shared.exeption.RecursoNaoEncontradoException;
 import tech.miqueias.bento.io.usuario.Usuario;
 import tech.miqueias.bento.io.usuario.UsuarioRepository;
 import tech.miqueias.bento.io.usuario.dto.UsuarioRequestDTO;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -70,11 +68,11 @@ public class AuthService {
     private String gerarTokenJwt(Usuario usuario, long duracaoSegundos) {
         return Jwt.issuer("comandas-api")
                 .upn(usuario.getEmail())
-                .groups(
-                        usuario.getRoles().stream()
-                                .map(Enum::name)
-                                .collect(Collectors.toSet())
-                )
+            .groups(
+                usuario.getRoles().stream()
+                    .map(Enum::name)
+                    .collect(Collectors.toSet())
+            )
                 .claim("nome", usuario.getNome())
                 .claim("userId", usuario.getId())
                 .expiresIn(Duration.ofSeconds(duracaoSegundos))

@@ -1,10 +1,9 @@
 package tech.miqueias.bento.io.usuario;
 
-import jakarta.annotation.security.RolesAllowed;
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
@@ -27,14 +26,14 @@ public class UsuarioController {
 
     @GET
     @Path("/all")
-    @RolesAllowed({"ADMINISTRADOR", "GERENTE"})
+    @PermitAll
     public List<UsuarioResponseDTO> listarTodos() {
         return usuarioService.listarTodos();
     }
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"ADMINISTRADOR", "GERENTE"})
+    @PermitAll
     public UsuarioResponseDTO buscarPorId(@PathParam("id") Long id) {
         return usuarioService.buscarPorId(id);
     }
