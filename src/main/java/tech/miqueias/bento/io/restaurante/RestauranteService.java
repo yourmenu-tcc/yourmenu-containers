@@ -15,7 +15,7 @@ import tech.miqueias.bento.io.usuario.Role;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.text.Normalizer;
 
 @ApplicationScoped
 public class RestauranteService {
@@ -68,8 +68,12 @@ public class RestauranteService {
                 dto.tempoDeEntrega(),
                 dto.logoUrl(),
                 dto.bannerUrl(),
-                ""
+                gerarAcessoUrl(dto.nome())
         );
+
+        if (dto.aberto() != null) {
+            restaurante.setAberto(dto.aberto());
+        }
 
         restauranteRepository.salvar(restaurante);
 
@@ -94,6 +98,7 @@ public class RestauranteService {
         if (dto.tempoDeEntrega() != null) restaurante.setTempoDeEntrega(dto.tempoDeEntrega());
         if (dto.logoUrl() != null) restaurante.setLogoUrl(dto.logoUrl());
         if (dto.bannerUrl() != null) restaurante.setBannerUrl(dto.bannerUrl());
+        if (dto.aberto() != null) restaurante.setAberto(dto.aberto());
 
         return toDTO(restaurante);
     }
@@ -117,5 +122,20 @@ public class RestauranteService {
                 restaurante.getBannerUrl(),
                 restaurante.getAcessoUrl()
         );
+    }
+
+    private String gerarAcessoUrl(String nome) {
+        String base = Normalizer.normalize(nome == null ? "restaurante" : nome, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase()
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("(^-|-$)", "");
+        if (base.isBlank()) base = "restaurante";
+        String candidato = base;
+        int sufixo = 2;
+        while (restauranteRepository.existePorAcessoUrl(candidato)) {
+            candidato = base + "-" + sufixo++;
+        }
+        return candidato;
     }
 }

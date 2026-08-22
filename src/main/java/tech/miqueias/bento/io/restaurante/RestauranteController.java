@@ -35,7 +35,7 @@ public class RestauranteController {
 
     @GET
     @Path("")
-    @RolesAllowed({"ADMINISTRADOR"})
+    @PermitAll
     public Response listarTodos(@QueryParam("page") @DefaultValue("0") int page,
                                @QueryParam("size") @DefaultValue("10") int size) {
         List<RestauranteResponseDto> restaurantes = restauranteService.buscarTodos(page, size);
