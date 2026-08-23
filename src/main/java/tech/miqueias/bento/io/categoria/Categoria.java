@@ -2,7 +2,7 @@ package tech.miqueias.bento.io.categoria;
 
 import jakarta.persistence.*;
 import tech.miqueias.bento.io.restaurante.Restaurante;
-import tech.miqueias.bento.io.shared.exeption.DomainException;
+import tech.miqueias.bento.io.shared.exception.DomainException;
 
 @Entity
 @Table(
