@@ -51,8 +51,13 @@ public class TenantFilter implements ContainerRequestFilter {
             return;
         }
 
+        if (usuario.possuiRole(tech.miqueias.bento.io.usuario.Role.ADMINISTRADOR)) {
+            tenantContext.bind(usuario, null, null);
+            return;
+        }
+
         Optional<UsuarioRestaurante> vinculacaoColaborador = usuarioRestauranteRepository.buscar(usuario.getId(), restauranteId);
-        if (vinculacaoColaborador.isPresent()) {
+        if (vinculacaoColaborador.isPresent() && vinculacaoColaborador.get().getStatus() == tech.miqueias.bento.io.restaurante.StatusVinculoRestaurante.ATIVO) {
             tenantContext.bind(usuario, restauranteId, vinculacaoColaborador.get().getPapel());
             return;
         }
