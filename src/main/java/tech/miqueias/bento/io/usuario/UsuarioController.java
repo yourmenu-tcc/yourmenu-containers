@@ -7,6 +7,10 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
+import tech.miqueias.bento.io.usuario.dto.UsuarioAtualizacaoRequestDTO;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -26,16 +30,26 @@ public class UsuarioController {
 
     @GET
     @Path("/all")
-    @PermitAll
+    @RolesAllowed("ADMINISTRADOR")
     public List<UsuarioResponseDTO> listarTodos() {
         return usuarioService.listarTodos();
     }
 
     @GET
     @Path("/{id}")
-    @PermitAll
+    @RolesAllowed("ADMINISTRADOR")
     public UsuarioResponseDTO buscarPorId(@PathParam("id") Long id) {
         return usuarioService.buscarPorId(id);
     }
+
+    @PUT
+    @Path("/{id}")
+    @RolesAllowed("ADMINISTRADOR")
+    public UsuarioResponseDTO atualizar(@PathParam("id") Long id, @Valid UsuarioAtualizacaoRequestDTO request) { return usuarioService.atualizar(id, request); }
+
+    @DELETE
+    @Path("/{id}")
+    @RolesAllowed("ADMINISTRADOR")
+    public Response excluir(@PathParam("id") Long id) { usuarioService.excluir(id); return Response.noContent().build(); }
 
 }

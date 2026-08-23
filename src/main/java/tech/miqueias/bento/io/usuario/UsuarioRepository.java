@@ -33,4 +33,6 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
     public boolean existePorEmail(String email) {
         return count("email", email) > 0;
     }
+
+    public boolean existePorEmailExcetoId(String email, Long id) { return count("email = ?1 and id <> ?2", email, id) > 0; }
 }

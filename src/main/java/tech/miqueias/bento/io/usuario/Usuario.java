@@ -3,6 +3,7 @@ package tech.miqueias.bento.io.usuario;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import tech.miqueias.bento.io.shared.exeption.DomainException;
 
 @Entity
 @Table(name = "usuarios")
@@ -67,5 +68,12 @@ public class Usuario {
 
     public void setSenha(String senhaHash) {
         this.senha = senhaHash;
+    }
+
+    public void atualizar(String nome, String email, Set<Role> roles) {
+        if (nome == null || nome.isBlank() || email == null || email.isBlank() || roles == null || roles.isEmpty()) throw new DomainException("Nome, email e ao menos um papel são obrigatórios.");
+        this.nome = nome;
+        this.email = email;
+        this.roles = new HashSet<>(roles);
     }
 }

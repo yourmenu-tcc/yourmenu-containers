@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import tech.miqueias.bento.io.shared.exeption.RecursoNaoEncontradoException;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
+import tech.miqueias.bento.io.usuario.dto.UsuarioAtualizacaoRequestDTO;
+import tech.miqueias.bento.io.shared.exeption.DomainException;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +31,19 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.buscarPorId(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário", id));
         return toResponseDTO(usuario);
+    }
+
+    @Transactional
+    public UsuarioResponseDTO atualizar(Long id, UsuarioAtualizacaoRequestDTO request) {
+        Usuario usuario = usuarioRepository.buscarPorId(id).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário", id));
+        if (usuarioRepository.existePorEmailExcetoId(request.email(), id)) throw new DomainException("Já existe um usuário com o email: " + request.email());
+        usuario.atualizar(request.nome(), request.email(), request.roles());
+        return toResponseDTO(usuario);
+    }
+
+    @Transactional
+    public void excluir(Long id) {
+        if (!usuarioRepository.deleteById(id)) throw new RecursoNaoEncontradoException("Usuário", id);
     }
 
     private UsuarioResponseDTO toResponseDTO(Usuario u) {
