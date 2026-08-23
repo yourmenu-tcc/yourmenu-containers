@@ -1,0 +1,14 @@
+package tech.miqueias.bento.io.colaborador.dto;
+
+import tech.miqueias.bento.io.restaurante.StatusVinculoRestaurante;
+import tech.miqueias.bento.io.usuario.Role;
+
+public record ColaboradorResponseDto(
+    Long id, 
+    Long usuarioId, 
+    String nome, 
+    String email, 
+    Role papel, 
+    StatusVinculoRestaurante status
+) {
+}

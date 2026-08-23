@@ -5,6 +5,7 @@ import tech.miqueias.bento.io.restaurante.Restaurante;
 import tech.miqueias.bento.io.restaurante.StatusVinculoRestaurante;
 import tech.miqueias.bento.io.usuario.Role;
 import tech.miqueias.bento.io.usuario.Usuario;
+import tech.miqueias.bento.io.shared.exeption.DomainException;
 
 @Entity
 @Table(
@@ -39,6 +40,9 @@ public class UsuarioRestaurante {
     }
 
     public UsuarioRestaurante(Usuario usuario, Restaurante restaurante, Role papel, StatusVinculoRestaurante status) {
+        if (usuario == null || restaurante == null || papel == null || papel == Role.ADMINISTRADOR) {
+            throw new DomainException("O vínculo deve possuir usuário, restaurante e papel operacional válido.");
+        }
         this.usuario = usuario;
         this.restaurante = restaurante;
         this.papel = papel;
@@ -63,5 +67,11 @@ public class UsuarioRestaurante {
 
     public StatusVinculoRestaurante getStatus() {
         return status;
+    }
+
+    public void atualizar(Role papel, StatusVinculoRestaurante status) {
+        if (papel == null || papel == Role.ADMINISTRADOR || status == null) throw new DomainException("Papel e status do vínculo são obrigatórios.");
+        this.papel = papel;
+        this.status = status;
     }
 }
