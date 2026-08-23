@@ -3,7 +3,7 @@ package tech.miqueias.bento.io.usuario;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import tech.miqueias.bento.io.shared.exeption.DomainException;
+import tech.miqueias.bento.io.shared.exception.DomainException;
 
 @Entity
 @Table(name = "usuarios")

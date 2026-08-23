@@ -5,7 +5,7 @@ import tech.miqueias.bento.io.restaurante.Restaurante;
 import tech.miqueias.bento.io.restaurante.StatusVinculoRestaurante;
 import tech.miqueias.bento.io.usuario.Role;
 import tech.miqueias.bento.io.usuario.Usuario;
-import tech.miqueias.bento.io.shared.exeption.DomainException;
+import tech.miqueias.bento.io.shared.exception.DomainException;
 
 @Entity
 @Table(

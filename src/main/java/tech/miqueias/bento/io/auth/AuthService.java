@@ -10,7 +10,7 @@ import org.wildfly.security.password.interfaces.BCryptPassword;
 import org.wildfly.security.password.util.ModularCrypt;
 import tech.miqueias.bento.io.auth.dto.LoginRequest;
 import tech.miqueias.bento.io.auth.dto.LoginResponse;
-import tech.miqueias.bento.io.shared.exeption.DomainException;
+import tech.miqueias.bento.io.shared.exception.DomainException;
 import tech.miqueias.bento.io.usuario.Usuario;
 import tech.miqueias.bento.io.usuario.UsuarioRepository;
 import tech.miqueias.bento.io.usuario.dto.UsuarioRequestDTO;
