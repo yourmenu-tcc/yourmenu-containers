@@ -2,10 +2,9 @@ package tech.miqueias.bento.io.usuario;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import tech.miqueias.bento.io.shared.exeption.RecursoNaoEncontradoException;
+import tech.miqueias.bento.io.shared.exception.*;
 import tech.miqueias.bento.io.usuario.dto.UsuarioResponseDTO;
 import tech.miqueias.bento.io.usuario.dto.UsuarioAtualizacaoRequestDTO;
-import tech.miqueias.bento.io.shared.exeption.DomainException;
 import jakarta.transaction.Transactional;
 
 import java.util.List;

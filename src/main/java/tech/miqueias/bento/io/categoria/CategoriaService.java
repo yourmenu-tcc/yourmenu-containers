@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import tech.miqueias.bento.io.categoria.dto.*;
 import tech.miqueias.bento.io.pratos.PratoRepository;
 import tech.miqueias.bento.io.restaurante.*;
-import tech.miqueias.bento.io.shared.exeption.*;
+import tech.miqueias.bento.io.shared.exception.*;
 import tech.miqueias.bento.io.shared.tenant_context.AcessoRestauranteService;
 import tech.miqueias.bento.io.usuario.Role;
 

@@ -1,4 +1,4 @@
-package tech.miqueias.bento.io.shared.exeption;
+package tech.miqueias.bento.io.shared.exception;
 
 public class DomainException extends RuntimeException {
 
