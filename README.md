@@ -1,4 +1,25 @@
-# yourmenu-containers
+# YourMenu API
+
+API SaaS multi-tenant para cardápio, zonas de entrega, colaboradores e pedidos.
+
+## Execução local
+
+Suba o PostgreSQL e depois a API:
+
+```shell
+docker compose up -d postgres
+./mvnw quarkus:dev
+```
+
+Por padrão o banco usa `yourmenu/yourmenu` e a base `yourmenu_db`. Em produção, informe `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`; não há credenciais fixas no código.
+
+As rotas de operação usam o formato `/api/restaurantes/{restauranteId}/...`. Catálogo e criação de pedidos são públicos; alterações e operações internas exigem JWT. Um colaborador deve enviar `X-Restaurante-Id` quando a rota não trouxer o id na URL.
+
+## Módulos REST
+
+- `/categorias`, `/pratos`, `/zonas-de-entrega`: CRUD do catálogo e entrega.
+- `/colaboradores`: CRUD de vínculos de equipe.
+- `/pedidos`: criação, consulta, avanço de status e cancelamento.
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
