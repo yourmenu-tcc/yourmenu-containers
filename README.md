@@ -4,14 +4,16 @@ API SaaS multi-tenant para cardápio, zonas de entrega, colaboradores e pedidos.
 
 ## Execução local
 
-Suba o PostgreSQL e depois a API:
+Para conectar ao PostgreSQL configurado no `.env` e iniciar a API:
 
 ```shell
-docker compose up -d postgres
+set -a
+source .env
+set +a
 ./mvnw quarkus:dev
 ```
 
-Por padrão o banco usa `yourmenu/yourmenu` e a base `yourmenu_db`. Em produção, informe `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`; não há credenciais fixas no código.
+As variáveis esperadas são `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD` e, opcionalmente, `DB_SSLMODE` (`require` por padrão para o RDS; use `disable` para o PostgreSQL local). Para usar o banco local via Docker, execute `docker compose up -d postgres` e mantenha os valores locais no ambiente.
 
 As rotas de operação usam o formato `/api/restaurantes/{restauranteId}/...`. Catálogo e criação de pedidos são públicos; alterações e operações internas exigem JWT. Um colaborador deve enviar `X-Restaurante-Id` quando a rota não trouxer o id na URL.
 
