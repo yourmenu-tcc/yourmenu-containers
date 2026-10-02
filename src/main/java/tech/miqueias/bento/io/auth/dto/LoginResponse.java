@@ -1,6 +1,9 @@
 package tech.miqueias.bento.io.auth.dto;
 
-public record LoginResponse (
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public record LoginResponse(
         String token,
         String tipo,
         long expiracaoEmSegundos
