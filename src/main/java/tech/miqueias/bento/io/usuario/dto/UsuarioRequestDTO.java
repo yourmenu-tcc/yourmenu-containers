@@ -1,5 +1,7 @@
 package tech.miqueias.bento.io.usuario.dto;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -7,6 +9,7 @@ import tech.miqueias.bento.io.usuario.Role;
 
 import java.util.Set;
 
+@RegisterForReflection
 public record UsuarioRequestDTO(
         @NotBlank(message = "Nome é obrigatório")
         String nome,

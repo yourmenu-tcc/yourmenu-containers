@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.RestResponse;
 import tech.miqueias.bento.io.auth.dto.LoginRequest;
 import tech.miqueias.bento.io.auth.dto.LoginResponse;
 import tech.miqueias.bento.io.usuario.dto.UsuarioRequestDTO;
@@ -43,9 +44,8 @@ public class AuthController {
     @POST
     @Path("/login")
     @PermitAll
-    public Response login(@Valid LoginRequest dto) {
-        LoginResponse token = authService.login(dto);
-        return Response.ok(token).build();
+    public RestResponse<LoginResponse> login(@Valid LoginRequest dto) {
+        return RestResponse.ok(authService.login(dto));
     }
 
     @GET
