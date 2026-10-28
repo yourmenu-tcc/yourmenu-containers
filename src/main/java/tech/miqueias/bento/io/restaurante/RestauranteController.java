@@ -43,6 +43,17 @@ public class RestauranteController {
     }
 
     @GET
+    @Path("/meu-restaurante")
+    @PermitAll
+    public Response buscarMeuRestaurante() {
+        var restauranteIdOpt = tenantContext.getRestauranteId();
+        if (restauranteIdOpt.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Restaurante não encontrado").build();
+        }
+        return buscarPorId(restauranteIdOpt.get());
+    }
+
+    @GET
     @Path("/{restauranteId}")
     @PermitAll
     public Response buscarPorId(@PathParam("restauranteId") Long restauranteId) {
